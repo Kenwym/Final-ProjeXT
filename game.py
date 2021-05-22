@@ -15,7 +15,7 @@ class Game():
         self.enemy = [Minotaur()]
         self.money = 100
         self.lives = 10
-        self.bg = pygame.image.load(os.path.join("assets/Menu_Building.png"))
+        self.bg = pygame.image.load("assets/Menu_Building.png")
         self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
         self.clicks = []
 
