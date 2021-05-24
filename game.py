@@ -4,27 +4,28 @@ import os
 from minotaur import Minotaur
 from minotaur2 import Minotaur2
 from minotaur3 import Minotaur3
+from bomber import Bomber
+
+
 class Game():
     
     def __init__(self):
         self.width = 1280
         self.height = 720
         self.win = pygame.display.set_mode((self.width, self.height))
-        self.towers = []
+        self.towers = [Bomber(300,300)]
         self.enemy = [Minotaur()]
         self.money = 100
         self.lives = 10
         self.bg = pygame.image.load("assets/bg1.jpg")
         self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
-        self.clicks = []
-
 
     def run(self):
         run = True
         clock = pygame.time.Clock()
         
         while run:
-            clock.tick(200)
+            clock.tick(60)
             
             for event in pygame.event.get():
                 
@@ -53,6 +54,9 @@ class Game():
         
         for en in self.enemy:
             en.draw(self.win)
+            
+        for to in self.towers:
+            to.draw(self.win)
         
             
         pygame.display.update()
