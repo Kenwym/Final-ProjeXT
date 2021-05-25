@@ -13,7 +13,7 @@ class Game():
         self.width = 1280
         self.height = 720
         self.win = pygame.display.set_mode((self.width, self.height))
-        self.towers = [Bomber(300,300)]
+        self.towers = [Bomber(640,280)]
         self.enemy = [Minotaur()]
         self.money = 100
         self.lives = 10
@@ -25,7 +25,7 @@ class Game():
         clock = pygame.time.Clock()
         
         while run:
-            clock.tick(60)
+            clock.tick(30)
             
             for event in pygame.event.get():
                 

@@ -9,7 +9,7 @@ class Tower:
         self.height = 0
         self.sell_price = [0,0,0]
         self.price = [0,0,0]
-        self.level = 1
+        self.level = 0
         self.selected = False
         self.menu = None
         self.imgs = []

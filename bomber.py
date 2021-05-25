@@ -13,10 +13,10 @@ class Bomber(Tower):
         
         
         for x in range(3):
-            self.tower_imgs.append(pygame.transform.scale(pygame.image.load(os.path.join("assets/defense/tower1/tower1_"+ str(x) +".png")),(64, 64)))
+            self.tower_imgs.append(pygame.transform.scale(pygame.image.load(os.path.join("assets/defense/tower1/tower1_"+ str(x) +".png")),(96, 96)))
         
-        for x in range(18,22):
-            self.bomber_imgs.append(pygame.transform.scale(pygame.image.load(os.path.join("assets/defense/tower1/"+ str(x) +".png")),(32, 32)))
+        for x in range(10):
+            self.bomber_imgs.append(pygame.transform.scale(pygame.image.load(os.path.join("assets/defense/tower1/tower3_1_00"+ str(x) +".png")),(96, 96)))
         
         
         
@@ -31,7 +31,7 @@ class Bomber(Tower):
         
         
         bomber = self.bomber_imgs[self.bomb_count//10]
-        win.blit(bomber,((self.x +self.width/2)- (bomber.get_width()/2), (self.y -bomber.get_height() )))
+        win.blit(bomber,((self.x-bomber.get_width()/2, self.y-bomber.get_height()/2)))
         self.bomb_count += 1
         
     def attack(self, enemy):

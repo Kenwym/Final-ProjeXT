@@ -14,5 +14,5 @@ class Minotaur(Enemy):
         for x in range(18):
 
 
-            self.imgs.append(pygame.transform.scale(pygame.image.load(os.path.join("assets/enemy/minotaur/walking/Minotaur_01_Walking_"+ str(x) +".png")),(64, 64)))
+            self.imgs.append(pygame.transform.scale(pygame.image.load(os.path.join("assets/enemy/minotaur/walking/Minotaur_01_Walking_"+ str(x) +".png")),(96, 64)))
         
