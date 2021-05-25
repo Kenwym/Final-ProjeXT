@@ -14,7 +14,7 @@ class Enemy:
         self.health = 1
         self.animation_count = 0
         self.img = None
-        self.path = [(-30,480),(5, 480), (405, 485), (495, 450), (526, 371), (535, 271), (624, 234), (702, 244), (750, 296), (779, 374), (860, 409), (972, 412), (1041, 445), (1129, 483), (1280, 488)]
+        self.path = [(56, 77), (355, 79), (481, 204), (576, 201), (696, 78), (933, 85), (954, 482), (787, 480), (665, 362), (356, 354), (230, 236), (80, 236), (81, 571), (366, 574), (411, 546), (529, 546)]
         self.x = self.path[0][0]
         self.y = self.path[0][1]
         self.dis = 0
@@ -56,6 +56,8 @@ class Enemy:
 
         dirn = ((x2-x1)*2, (y2-y1)*2)
         length = math.sqrt((dirn[0])**2 + (dirn[1])**2)
+        if self.path_pos== 0:
+            pass
         dirn = (dirn[0]/length, dirn[1]/length)
 
         if dirn[0] < 0 and not(self.flipped):
@@ -68,21 +70,23 @@ class Enemy:
         self.x = move_x
         self.y = move_y
 
-        if dirn[0] >= 0: 
-            if dirn[1] >= 0: 
+        # Go to next point
+        if dirn[0] >= 0: # moving right
+            if dirn[1] >= 0: # moving down
                 if self.x >= x2 and self.y >= y2:
                     self.path_pos += 1
             else:
                 if self.x >= x2 and self.y <= y2:
                     self.path_pos += 1
-        else: 
-            if dirn[1] >= 0:  
+        else: # moving left
+            if dirn[1] >= 0:  # moving down
                 if self.x <= x2 and self.y >= y2:
                     self.path_pos += 1
             else:
                 if self.x <= x2 and self.y >= y2:
                     self.path_pos += 1
-            
+
+
     def hit(self):
         self.health -=1
         if self.health <= 0:
