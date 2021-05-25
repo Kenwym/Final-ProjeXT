@@ -14,13 +14,14 @@ class Enemy:
         self.health = 1
         self.animation_count = 0
         self.img = None
-        self.path = [(56, 77), (355, 79), (481, 204), (576, 201), (696, 78), (933, 85), (954, 482), (787, 480), (665, 362), (356, 354), (230, 236), (80, 236), (81, 571), (366, 574), (411, 546), (529, 546)]
+        self.path = [(58, 80), (348, 80), (479, 199), (576, 199), (694, 80), (919, 83), (922, 476), (786, 484), (674, 361), (349, 356), (216, 231), (71, 240), (80, 574), (364, 575), (411, 543), (547, 543)]
         self.x = self.path[0][0]
         self.y = self.path[0][1]
         self.dis = 0
         self.path_pos = 0
         self.move_count = 0
         self.move_dis = 0
+        self.flip = 0
         self.flipped = False
         
     def draw(self,win):
@@ -62,9 +63,14 @@ class Enemy:
 
         if dirn[0] < 0 and not(self.flipped):
             self.flipped = True
+            self.flip += 1
             for x, img in enumerate(self.imgs):
                 self.imgs[x] = pygame.transform.flip(img, True, False)
-
+        if self.path_pos == 11 and self.path[self.path_pos] == (71, 240):
+            if self.flip == 1:
+                self.flip += 1
+                for x, img in enumerate(self.imgs): 
+                    self.imgs[x] = pygame.transform.flip(img, True, False)  
         move_x, move_y = ((self.x + dirn[0]), (self.y + dirn[1]))
 
         self.x = move_x

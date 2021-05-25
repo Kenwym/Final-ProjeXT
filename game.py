@@ -41,7 +41,7 @@ class Game():
                 
             to_del= []
             for en in self.enemy:
-                if en.x == 510 and en.y ==506:
+                if en.x == 510 and en.y ==543:
                     to_del.append(en)
                     
             for f in to_del:
