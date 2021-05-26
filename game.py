@@ -4,7 +4,7 @@ import os
 from minotaur import Minotaur
 from minotaur2 import Minotaur2
 from minotaur3 import Minotaur3
-from bomber import Bomber1
+from bomber import Bomber
 import time
 import random
 class Game():
@@ -13,7 +13,7 @@ class Game():
         self.width = 1209
         self.height = 713
         self.win = pygame.display.set_mode((self.width, self.height))
-        self.towers = [Bomber1(363, 228)]
+        self.towers = [Bomber(363, 228)]
         self.enemies = []
         self.money = 100
         self.lives = 10

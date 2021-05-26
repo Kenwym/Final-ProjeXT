@@ -49,7 +49,7 @@ class Tower:
     
     def upgrade(self):
         self.level += 1
-    
+        self.damage = int(self.damage *1.5)
     def get_upgrade_cost(self):
         return self.price[self.level-1]
     

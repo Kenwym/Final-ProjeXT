@@ -6,22 +6,24 @@ import time
 
 
 tower_imgs1 = []
-bomb_imgs = []
+
 bomb_imgs2 = []
 bomb_imgs3 = []
+bomb_imgs1 = []
 for x in range(0,3):
     tower_imgs1.append(pygame.transform.scale(
         pygame.image.load(os.path.join("assets/defense/tower1/tower1_"+str(x)+".png")),(96, 96)))
 
 for a in range(10):
-    bomb_imgs.append(pygame.transform.scale(pygame.image.load(os.path.join("assets/defense/tower1/tower3_1_00" + str(a)+ ".png")),(96,96)))
+    bomb_imgs1.append(pygame.transform.scale(pygame.image.load(os.path.join("assets/defense/tower1/tower3_1_00" + str(a)+ ".png")),(96,96)))
 for b in range(10):
     bomb_imgs2.append(pygame.transform.scale(pygame.image.load(os.path.join("assets/defense/tower1/tower3_2_00" + str(b)+ ".png")),(96,96)))
     
 for c in range(10):
     bomb_imgs3.append(pygame.transform.scale(pygame.image.load(os.path.join("assets/defense/tower1/tower3_3_00" + str(c)+ ".png")),(96,96)))
-    
-class Bomber1(Tower):
+bomb_imgs = [bomb_imgs1,bomb_imgs2,bomb_imgs3]
+print(bomb_imgs)
+class Bomber(Tower):
     def __init__(self,x ,y):
         super().__init__(x, y)
         self.tower_imgs = tower_imgs1[:]
@@ -45,12 +47,12 @@ class Bomber1(Tower):
         super().draw_radius(win)
         if self.inRange and not self.moving:
             self.bomb_count += 1
-            if self.bomb_count >= len(self.bomb_imgs):
+            if self.bomb_count >= len(self.bomb_imgs[self.level]):
                 self.bomb_count = 0
         else:
             self.bomb_count = 0
 
-        bomb = self.bomb_imgs[self.bomb_count ]
+        bomb = self.bomb_imgs[self.level][self.bomb_count ]
         
         win.blit(bomb, (self.x - bomb.get_width()/2, self.y - bomb.get_height()/2))
 
