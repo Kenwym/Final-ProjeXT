@@ -10,19 +10,18 @@ tower_imgs1 = []
 bomb_imgs2 = []
 bomb_imgs3 = []
 bomb_imgs1 = []
-for x in range(0,3):
+for x in range(1,4):
     tower_imgs1.append(pygame.transform.scale(
-        pygame.image.load(os.path.join("assets/defense/tower1/tower1_"+str(x)+".png")),(96, 96)))
+        pygame.image.load(os.path.join("assets/defense/tower1/tower1_"+str(x)+"_1_000.png")),(100, 148)))
 
 for a in range(10):
-    bomb_imgs1.append(pygame.transform.scale(pygame.image.load(os.path.join("assets/defense/tower1/tower3_1_00" + str(a)+ ".png")),(96,96)))
+    bomb_imgs1.append(pygame.transform.scale(pygame.image.load(os.path.join("assets/defense/tower1/tower1_1_00" + str(a)+ ".png")),(100,148)))
 for b in range(10):
-    bomb_imgs2.append(pygame.transform.scale(pygame.image.load(os.path.join("assets/defense/tower1/tower3_2_00" + str(b)+ ".png")),(96,96)))
+    bomb_imgs2.append(pygame.transform.scale(pygame.image.load(os.path.join("assets/defense/tower1/tower1_2_00" + str(b)+ ".png")),(100,148)))
     
 for c in range(10):
-    bomb_imgs3.append(pygame.transform.scale(pygame.image.load(os.path.join("assets/defense/tower1/tower3_3_00" + str(c)+ ".png")),(96,96)))
+    bomb_imgs3.append(pygame.transform.scale(pygame.image.load(os.path.join("assets/defense/tower1/tower1_3_00" + str(c)+ ".png")),(100,148)))
 bomb_imgs = [bomb_imgs1,bomb_imgs2,bomb_imgs3]
-print(bomb_imgs)
 class Bomber(Tower):
     def __init__(self,x ,y):
         super().__init__(x, y)
@@ -37,7 +36,8 @@ class Bomber(Tower):
         self.original_damage = self.damage
         self.width = self.height = 96
         self.moving = False
-        self.name = "bomber1"
+        self.name = "bomber"
+        self.level = 1
         self.timer= time.time()
         
     
@@ -47,12 +47,12 @@ class Bomber(Tower):
         super().draw_radius(win)
         if self.inRange and not self.moving:
             self.bomb_count += 1
-            if self.bomb_count >= len(self.bomb_imgs[self.level]):
+            if self.bomb_count >= len(self.bomb_imgs[self.level])*5.5:
                 self.bomb_count = 0
         else:
             self.bomb_count = 0
 
-        bomb = self.bomb_imgs[self.level][self.bomb_count ]
+        bomb = self.bomb_imgs[self.level][self.bomb_count //5.5]
         
         win.blit(bomb, (self.x - bomb.get_width()/2, self.y - bomb.get_height()/2))
 
