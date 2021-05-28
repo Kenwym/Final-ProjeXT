@@ -3,10 +3,11 @@ import os
 from tower import Tower
 import math
 import time
-
+from menu import *
 
 tower_imgs1 = []
-
+upgrade_btn = pygame.transform.scale(pygame.image.load(os.path.join("assets/upgrade.png")), (50, 50))
+menu_bg = pygame.transform.scale(pygame.image.load(os.path.join("assets/menu_tower.png")), (50, 50))
 bomb_imgs2 = []
 bomb_imgs3 = []
 bomb_imgs1 = []
@@ -39,7 +40,11 @@ class FireBomber(Tower):
         self.name = "firebomber"
         self.level = 0
         self.timer= time.time()
+        self.item_cost = [250, 400, "MAX"]
         
+     def get_upgrade_cost(self):
+        return self.menu.get_item_cost()
+    
         
      def draw(self,win):
         super().draw(win)
@@ -52,13 +57,11 @@ class FireBomber(Tower):
             self.bomb_count = 0
 
         bomb = self.bomb_imgs[self.level][self.bomb_count //10]
-        win.blit(bomb, (self.x - bomb.get_width()/2, self.y - bomb.get_height()/2))
+        win.blit(bomb, (self.x - bomb.get_width()/2, self.y - bomb.get_height()/2-45))
         
         
         
-     def change_range(self,r):
-         self.range = r
-        
+     
      def attack(self, enemies):
          money = 0
          self.inRange = False

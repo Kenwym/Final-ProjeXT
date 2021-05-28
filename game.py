@@ -55,16 +55,16 @@ class Game():
         self.fire_towers  = []
         self.enemys = []
         self.lives = 10
-        self.money = 2000
+        self.money = 300
         self.bg = pygame.image.load("assets/MAPE.png")
         self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
         self.timer = time.time()
         self.life_font = pygame.font.SysFont("comicsans", 65)
         self.selected_tower = None
         self.menu = VerticalMenu(self.width - side_img.get_width() + 70, 250, side_img)
-        self.menu.add_btn(buy_bomb, "buy_bomb", 500)
-        self.menu.add_btn(buy_stone, "buy_stone", 750)
-        self.menu.add_btn(buy_fire, "buy_fire", 1000)
+        self.menu.add_btn(buy_bomb, "buy_bomb", 75)
+        self.menu.add_btn(buy_stone, "buy_stone", 125)
+        self.menu.add_btn(buy_fire, "buy_fire", 200)
         self.moving_object = None
         self.wave = 0
         self.current_wave = waves[self.wave][:]
@@ -155,7 +155,9 @@ class Game():
                             if btn_clicked:
                                 if btn_clicked == "Upgrade":
                                     cost = self.selected_tower.get_upgrade_cost()
-                                    if self.money >= cost:
+                                    if cost == 'MAX':
+                                        return False
+                                    if self.money > cost:
                                         self.money -= cost
                                         self.selected_tower.upgrade()
 

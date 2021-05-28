@@ -1,11 +1,14 @@
 import pygame
 import os
+import tower
 pygame.font.init()
+pygame.init()
 
 star = pygame.transform.scale(pygame.image.load(os.path.join("assets/money.png")), (50,50))
 star2 = pygame.transform.scale(pygame.image.load(os.path.join("assets/money.png")), (20,20))
 
 class Button:
+
     def __init__(self, menu, img, name):
         self.name = name
         self.img = img
@@ -14,23 +17,22 @@ class Button:
         self.menu = menu
         self.width = self.img.get_width()
         self.height = self.img.get_height()
-    
-    
-    
+
     def click(self, X, Y):
-        
+
         if X <= self.x + self.width and X >= self.x:
             if Y <= self.y + self.height and Y >= self.y:
                 return True
         return False
 
-    def draw(self,win):
+    def draw(self, win):
+
         win.blit(self.img, (self.x, self.y))
 
     def update(self):
-        self.x = self.menu.x - 50
-        self.y = self.menu.y - 110
 
+        self.x = self.menu.x - 60
+        self.y = self.menu.y + 10
 
 
 class PlayPauseButton(Button):
@@ -61,40 +63,51 @@ class VerticalButton(Button):
         self.cost = cost
 
 class Menu:
-    def __init__(self, x, y, img):
+
+    def __init__(self, tower , x, y, img, item_cost):
         self.x = x
         self.y = y
         self.width = img.get_width()
         self.height = img.get_height()
-        self.item_names = []
+        self.item_cost = item_cost
         self.buttons = []
         self.items = 0
         self.bg = img
-    
+        self.font = pygame.font.SysFont("comicsans", 25)
+        self.tower = tower
+
     def add_btn(self, img, name):
+
         self.items += 1
         self.buttons.append(Button(self, img, name))
-        
+
     def get_item_cost(self):
-        return self.item_cost[self.tower.level - 1]
-    
+
+        return self.item_cost[self.tower.level]
+
     def draw(self, win):
-        win.blit(self.bg, (self.x - self.bg.get_width()/2, self.y-120))
+
+        win.blit(self.bg, (self.x - self.bg.get_width()/2, self.y))
         for item in self.buttons:
             item.draw(win)
-            win.blit(star, (item.x + item.width + 5, item.y-9))
-            text = self.font.render(str(self.item_cost[self.tower.level - 1]), 1, (255,255,255))
-            win.blit(text, (item.x + item.width + 30 - text.get_width()/2, item.y + star.get_height() -8))
+            win.blit(star, (self.x + 10, self.y + 10))
+            text = self.font.render(str(self.item_cost[self.tower.level ]), 1, (255,255,255))
+            win.blit(text, (self.x + text.get_width()//2 + 20, self.y + star.get_height()//2+ 20))
 
     def get_clicked(self, X, Y):
+
         for btn in self.buttons:
-            if btn.click(X, Y):
+            if btn.click(X,Y):
                 return btn.name
-    
+
+        return None
+
     def update(self):
+
         for btn in self.buttons:
             btn.update()
-        
+            
+            
 class VerticalMenu(Menu):
     def __init__(self, x, y, img):
         self.x = x
@@ -107,34 +120,21 @@ class VerticalMenu(Menu):
         self.font = pygame.font.SysFont("comicsans", 25)
 
     def add_btn(self, img, name, cost):
-        """
-        adds buttons to menu
-        :param img: surface
-        :param name: str
-        :return: None
-        """
+
         self.items += 1
         btn_x = self.x - 40
         btn_y = self.y-100 + (self.items-1)*120
         self.buttons.append(VerticalButton(btn_x, btn_y, img, name, cost))
 
     def get_item_cost(self, name):
-        """
-        gets cost of item
-        :param name: str
-        :return: int
-        """
+
         for btn in self.buttons:
             if btn.name == name:
                 return btn.cost
         return -1
 
     def draw(self, win):
-        """
-        draws btns and menu bg
-        :param win: surface
-        :return: None
-        """
+
         win.blit(self.bg, (self.x - self.bg.get_width()/2, self.y-120))
         for item in self.buttons:
             item.draw(win)

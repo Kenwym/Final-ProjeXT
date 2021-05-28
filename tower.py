@@ -2,8 +2,8 @@ import pygame
 from menu import Menu
 import os
 import math
-menu_bg = pygame.transform.scale(pygame.image.load(os.path.join("assets/menu.png")), (100, 50))
-
+menu_bg = pygame.transform.scale(pygame.image.load(os.path.join("assets/menu_tower.png")), (150, 75))
+upgrade_btn = pygame.transform.scale(pygame.image.load(os.path.join("assets/upgrade.png")), (50, 50))
 class Tower:
     
     def __init__(self,x,y):
@@ -15,16 +15,18 @@ class Tower:
         self.price = [0,0,0]
         self.level = 0
         self.selected = False
-        self.menu = Menu(self.x, self.y, menu_bg)
         self.imgs = []
-        self.tower_imgs = []
         
+        self.menu = Menu(self, self.x, self.y, menu_bg, [125, 150, 'MAX'])
+        self.menu.add_btn(upgrade_btn, "Upgrade")
+
+        self.tower_imgs = []
         self.place_color = (0,0,255, 100)
-    
+
     def draw(self,win):
         
         img = self.tower_imgs[self.level]
-        win.blit(img, (self.x-img.get_width()//2, self.y-img.get_height()//2))
+        win.blit(img, (self.x-img.get_width()//2, self.y-img.get_height()//2-45))
     
         if self.selected:
             self.menu.draw(win)
@@ -57,7 +59,7 @@ class Tower:
         self.damage = int(self.damage *1.5)
         
     def get_upgrade_cost(self):
-        return self.price[self.level-1]
+        return self.price[self.level]
     
     def move(self, x, y):
         self.x = x
