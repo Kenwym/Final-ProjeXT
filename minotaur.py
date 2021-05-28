@@ -16,5 +16,5 @@ class Minotaur(Enemy):
         self.max_health =1
         self.health = self.max_health
         self.imgs = imgs[:]
-        self.money = 1
+        self.money = 2
         self.name = "minotaur"
