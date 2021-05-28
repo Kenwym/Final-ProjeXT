@@ -37,7 +37,7 @@ class Bomber(Tower):
         self.width = self.height = 96
         self.moving = False
         self.name = "bomber"
-        self.level = 1
+        self.level = 0
         self.timer= time.time()
         
     
@@ -52,7 +52,7 @@ class Bomber(Tower):
         else:
             self.bomb_count = 0
 
-        bomb = self.bomb_imgs[self.level][self.bomb_count //5.5]
+        bomb = self.bomb_imgs[self.level][self.bomb_count //10]
         
         win.blit(bomb, (self.x - bomb.get_width()/2, self.y - bomb.get_height()/2))
 
@@ -63,12 +63,12 @@ class Bomber(Tower):
         self.range = r
         
     def attack(self, enemies):
+        money = 0
         self.inRange = False
         enemy_closest = []
         for enemy in enemies:
             x = enemy.x
             y = enemy.y
-            
             dis = math.sqrt((self.x - x)**2 +(self.y - y)**2)
             if dis < self.range:
                 self.inRange = True
@@ -78,9 +78,10 @@ class Bomber(Tower):
             first_enemy = enemy_closest[0]
             if time.time() - self.timer >=1.8:
                 self.timer = time.time()
-                if first_enemy.hit() == True:
+                if first_enemy.hit(self.damage) == True:
+                    money = first_enemy.money *2
                     enemies.remove(first_enemy)
-            
+        return money
 
         
 

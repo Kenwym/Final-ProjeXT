@@ -2,6 +2,10 @@ import pygame
 from pygame.locals import *
 import os
 import math
+from tower import Tower
+from bomber import Bomber
+from stonebomber import StoneBomber
+from firebomber import FireBomber
 
 class Enemy:
     imgs = []
@@ -103,8 +107,8 @@ class Enemy:
                     self.path_pos += 1
 
 
-    def hit(self):
-        self.health -=1
+    def hit(self,damage):
+        self.health -= damage
         if self.health <= 0:
             return True
         return False

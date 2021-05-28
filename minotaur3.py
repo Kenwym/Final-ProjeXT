@@ -13,8 +13,8 @@ class Minotaur3(Enemy):
      
     def __init__(self):
         super().__init__()
-        self.imgs = []
         self.max_health =5
         self.health = self.max_health
         self.imgs = imgs[:]
-        
+        self.money = 3
+        self.name = "minotaur3"
